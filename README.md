@@ -12,9 +12,19 @@
 * Ending(Plan): 2017. 03. 25.
 
 ## Datebase Scheme (Plan)
-* _id VARCHAR(10) PRIMARY
-* origUrl VARCHAR(1000)
-* createdAt DATE
+
+### urls
+* _id type:String, index: true
+* origUrl: String
+* createdAt: DATE
+
+### counters
+**As i know correct knowledge, mongo don't support automatically increase id**
+
+*but, if we use alias url?*
+
+* _id: type:String, required:true
+* seq: type:Number, default:0
 
 ## License
 MIT
