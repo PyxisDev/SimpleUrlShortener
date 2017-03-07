@@ -8,8 +8,8 @@ var config = require('./config.js');
 var Url = require('./models/models.js');
 
 // Basic Settings
-var baseUrl = 'http://localhost:' + port + '/';
 var port = 3000;
+var baseUrl = 'http://localhost:' + port + '/';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
