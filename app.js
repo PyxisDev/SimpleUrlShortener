@@ -1,5 +1,8 @@
 var express = require('express');
+var path = require('path');
 var app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 /**
  * Serve up homepage of UrlShortener
@@ -7,7 +10,7 @@ var app = express();
  * Send to: /api/makeShort
  */
 app.get('/', function(req, res) {
-
+    res.sendFile(path.join(__dirname, 'views/index.html'));
 })
 
 /**
