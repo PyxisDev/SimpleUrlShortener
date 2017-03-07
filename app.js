@@ -1,6 +1,11 @@
 var express = require('express');
 var path = require('path');
 var app = express();
+var base58 = require('./base58.js');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -23,6 +28,12 @@ app.get('/', function(req, res) {
  *      5. save url into mongodb, process ending
  */
 app.post('/api/makeShort', function(req, res) {
+     var longUrl = req.body.url;
+     //var alias = requ.body.alias;
+     var shortUrl = '';
+
+     shortUrl = config.webhost + base58.encode(doc._id);
+     res.send({'shortUrl': shortUrl});
 })
 
 /**
