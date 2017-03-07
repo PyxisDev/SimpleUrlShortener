@@ -4,8 +4,8 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var base58 = require('./base58.js');
-var dbConfig = require('./config');
-var Url = require('./models/url');
+var config = require('./config.js');
+var Url = require('./models/models.js');
 
 // Basic Settings
 var baseUrl = 'http://localhost:' + port + '/';
