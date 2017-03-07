@@ -1,0 +1,27 @@
+.btn:focus, .btn-shorten:focus{
+  outline: 0 !important;
+}
+
+html, body {
+  height: 100%;
+  background-color: #03A9F4;
+}
+
+body {
+  color: #fff;
+  text-align: center;
+}
+
+.btn-make {
+    background-color: #0288D1;
+    border: none;
+}
+
+.btn-make:hover,
+.btn-make:focus,
+.btn-make:active,
+.btn-make.active {
+  color: #ffffff;
+  background-color: #FA8900;
+  border: none;
+}
