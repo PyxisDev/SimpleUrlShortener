@@ -4,6 +4,10 @@ var app = express();
 var base58 = require('./base58.js');
 var bodyParser = require('body-parser');
 
+// Basic Settings
+var baseUrl = 'http://localhost:' + port + '/';
+var port = 3000;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -29,10 +33,9 @@ app.get('/', function(req, res) {
  */
 app.post('/api/makeShort', function(req, res) {
      var longUrl = req.body.url;
-     //var alias = requ.body.alias;
      var shortUrl = '';
-
-     shortUrl = config.webhost + base58.encode(doc._id);
+     
+     shortUrl = baseUrl + base58.encode(doc._id);
      res.send({'shortUrl': shortUrl});
 })
 
@@ -43,6 +46,6 @@ app.get('/:encoded_id', function(req, res) {
    
 })
 
-var server = app.listen(3000, function() {
-    console.log('Listening on port 3000');
+var server = app.listen(port, function() {
+    console.log('Listening on port ' + port);
 })
