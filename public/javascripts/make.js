@@ -5,7 +5,9 @@ $('.btn-make').on('click', function() {
         dataType: 'JSON',
         data: {url: $('#url-field').val()},
         success: function(data) {
-            var resultHTML = '<a class="result" href="' + data.shortUrl + '">' + data.shortUrl + '</a>';
+            var resultHTML = '<input id="result-field" type="text" class="form-control" placeholder="Provied some link" value="' + data.shortUrl + '"">' +
+            '<span class="input-group-btn"> <button class="btn btn-copy" type="button">COPY</button></span>';
+
             $('#result').html(resultHTML);
         }
     })

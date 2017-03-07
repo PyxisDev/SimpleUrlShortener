@@ -12,7 +12,7 @@ body {
   text-align: center;
 }
 
-.btn-make {
+.btn-make, .btn-copy {
     background-color: #0288D1;
     border: none;
 }
@@ -20,8 +20,22 @@ body {
 .btn-make:hover,
 .btn-make:focus,
 .btn-make:active,
-.btn-make.active {
+.btn-make.active,
+.btn-copy:hover,
+.btn-copy:focus,
+.btn-copy:active,
+.btn-copy.active {
   color: #ffffff;
   background-color: #FA8900;
   border: none;
+}
+
+#result {
+  padding-top: 15px;
+}
+
+#result a{
+  color: #F89406;
+  font-size: 1.5em;
+  margin-right: 20px;
 }
