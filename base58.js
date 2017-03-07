@@ -8,9 +8,9 @@ var charBase = usingChars.length;
 function encode(num){
   var encoded = '';
   while (num){
-    var remainder = num % base;
-    num = Math.floor(num / base);
-    encoded = alphabet[remainder].toString() + encoded;
+    var remainder = num % charBase;
+    num = Math.floor(num / charBase);
+    encoded = usingChars[remainder].toString() + encoded;
   }
   return encoded;
 }
@@ -22,9 +22,9 @@ function encode(num){
 function decode(str){
   var decoded = 0;
   while (str){
-    var index = alphabet.indexOf(str[0]);
+    var index = usingChars.indexOf(str[0]);
     var power = str.length - 1;
-    decoded += index * (Math.pow(base, power));
+    decoded += index * (Math.pow(charBase, power));
     str = str.substring(1);
   }
   return decoded;
