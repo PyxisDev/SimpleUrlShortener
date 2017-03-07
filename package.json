@@ -1,0 +1,14 @@
+{
+  "name": "simple_url_shortener",
+  "version": "0.0.1",
+  "description": "Simple url shortener with node, express, mongo",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pyxis (DongGil, Seo)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
