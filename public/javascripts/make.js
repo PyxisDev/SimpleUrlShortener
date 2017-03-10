@@ -5,8 +5,12 @@ $('.btn-make').on('click', function() {
         dataType: 'JSON',
         data: {url: $('#url-field').val(), alias: $('alias-field').val()},
         success: function(data) {
-            var resultHTML = '<h2>This is for YOU!</h2><h3>Url is <a href="' + data.shortUrl + '">' + data.shortUrl + '</a><h3><button type="button" class="btn btn-primary" id="btn-copy">COPY</button>';
+            var resultHTML = '<h2>This is for YOU!</h2><h3>Url is <a id="result-url" href="' + data.shortUrl + '">' + data.shortUrl + '</a><h3><button type="button" class="btn btn-primary" id="btn-copy">COPY</button>';
             $('#result').html(resultHTML);
         }
     })
 });
+
+$('.btn-copy').on('click', function() {
+    var url = $('result-url').href();
+})
