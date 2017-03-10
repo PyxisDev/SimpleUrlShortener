@@ -6,7 +6,7 @@ $('.btn-make').on('click', function() {
         data: {url: $('#url-field').val(), alias: $('alias-field').val()},
         success: function(data) {
             var resultHTML = '<h2>This is for YOU!</h2><h3>Url is <a id="result-url" href="' + data.shortUrl + '" value="' + data.shortUrl + '">' + 
-            data.shortUrl + '</a>';
+            data.shortUrl + '</a></h3>';
             $('#result').html(resultHTML);
 
              BootstrapAlert.success({

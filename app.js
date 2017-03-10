@@ -58,7 +58,7 @@ app.post('/api/makeShort', function(req, res) {
                 }
 
                 shortUrl = baseUrl + base58.encode(newUrl._id);
-                res.send({'shortUrl': shortUrl});
+                res.send({'shortUrl': shortUrl, 'longUrl': longUrl});
             });
         }
     });
