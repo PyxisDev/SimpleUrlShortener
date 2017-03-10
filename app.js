@@ -49,13 +49,13 @@ app.post('/api/makeShort', function(req, res) {
      Url.findOne({long_url: longUrl}, function (err, doc){
         if (doc){
             shortUrl = baseUrl + base58.encode(doc._id);
-            res.send({'shortUrl': shortUrl});
+            res.send({'shortUrl': shortUrl, 'longUrl': longUrl});
         } else {
             // not found, so create new one
             if (checked) {
                 // create short url using alias
-                createUseAlias(longUrl, alias, res);
-                return;
+                //createUseAlias(longUrl, alias, res);
+                //return;
             }
             
             // create short url using algorithm
@@ -106,19 +106,9 @@ function createShortUrl(longUrl, doc, res) {
  */
 app.get('/:shortUrl', function(req, res) {
     var url = req.params.shortUrl;
+    console.log('url: ' + url);
     var id = base58.decode(url);
     console.log('id: ' + id);
-    if (id == NaN) {
-        Uri.findOne({alias: url}, function (err, doc) {
-            if (doc) {
-                res.redirect(doc.long_url);
-            } else {
-                res.redirect(baseUrl);
-            }
-        });
-        return;
-    }
-
     Url.findOne({_id: id}, function (err, doc){
         if (doc) {
             res.redirect(doc.long_url);

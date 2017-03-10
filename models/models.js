@@ -9,9 +9,8 @@ var CounterSchema = Schema({
 var counter = mongoose.model('counter', CounterSchema);
 
 var urlSchema = new Schema({
-  _id: String,
+  _id: {type: String, index: true},
   long_url: String,
-  alias: String,
   created_at: Date
 });
 
