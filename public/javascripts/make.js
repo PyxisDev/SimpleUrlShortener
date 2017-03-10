@@ -5,20 +5,17 @@ $('.btn-make').on('click', function() {
         dataType: 'JSON',
         data: {url: $('#url-field').val(), alias: $('alias-field').val()},
         success: function(data) {
-            var resultHTML = '<h2>This is for YOU!</h2><h3>Url is <a id="result-url" href="' + data.shortUrl + '">' + 
-            data.shortUrl + '</a><h3><button type="button" class="btn btn-primary" id="btn-copy">COPY</button>';
+            var resultHTML = '<h2>This is for YOU!</h2><h3>Url is <a id="result-url" href="' + data.shortUrl + '" value="' + data.shortUrl + '">' + 
+            data.shortUrl + '</a><h3><button type="button" class="btn btn-primary" id="btn-copy" data-clipboard-target="#result-url">COPY</button>';
             $('#result').html(resultHTML);
+
+             BootstrapAlert.success({
+                title: "Your url is Ready!",
+                message: "Your new URL is " + data.shortUrl,
+                hideTimeout: 1000,
+                autoHide:true,
+                dismissible:false,
+            });
         }
     })
-});
-
-var clipboard = new Clipboard('.result-url', {
-
-})
-clipboard.on('success', function(e) {
-
-});
-
-clipboard.on('error', function(e) {
-
 });
