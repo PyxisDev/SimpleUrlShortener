@@ -10,8 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "bson-ext": "^1.0.5",
     "clipboard": "^1.6.1",
     "express": "^4.15.2",
-    "mongoose": "^4.8.6"
+    "mongoose": "^4.8.6",
+    "require_optional": "^1.0.0"
   }
 }

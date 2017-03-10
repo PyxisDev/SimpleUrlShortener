@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var base58 = require('./base58.js');
 var config = require('./config.js');
 var Url = require('./models/models.js');
+var BSON = require('bson');
 
 // Basic Settings
 var port = 3000;
@@ -13,7 +14,6 @@ var baseUrl = 'http://localhost:' + port + '/';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 // create connection to mongodb
@@ -45,7 +45,6 @@ app.post('/api/makeShort', function(req, res) {
      console.log('long_url: ' + longUrl);
      console.log('alias: ' + alias);
      console.log('checked: ' + checked);
-
     // find duplicate url from mongodb
      Url.findOne({long_url: longUrl}, function (err, doc){
         if (doc){
@@ -55,28 +54,39 @@ app.post('/api/makeShort', function(req, res) {
             // not found, so create new one
             if (checked) {
                 // create short url using alias
-                createUseAlias(longUrl, alias);
+                createUseAlias(longUrl, alias, res);
                 return;
             }
             
-            createShortUrl(longUrl, doc);
+            // create short url using algorithm
+            createShortUrl(longUrl, doc, res);
         }
     });
 })
 
-function createUseAlias(longUrl, alias) {
+function createUseAlias(longUrl, alias, res) {
     Url.findOne({_id: alias}, function (err, doc) {
         if (!doc) {
-            // available
+            var newUrl = Url({
+                long_url: longUrl,
+                alias: alias
+            });
+
+            newUrl.save(function(err) {
+                if (err) {
+                    console.log(err);
+                }
+
+                shortUrl = baseUrl + alias;
+                res.send({'shortUrl' : shortUrl, 'longUrl': longUrl});
+            });
         } else {
-            // not available
+            createShortUrl(longUrl, doc);
         }
     });
 }
 
-function createShortUrl(longUrl, doc) {
-    var shortUrl = '';
-
+function createShortUrl(longUrl, doc, res) {
     var newUrl = Url({
         long_url: longUrl
     });
@@ -94,9 +104,20 @@ function createShortUrl(longUrl, doc) {
 /**
  * Redirect to original Url
  */
-app.get('/:encoded_id', function(req, res) {
-    var base58Id = req.params.encoded_id;
-    var id = base58.decode(base58Id);
+app.get('/:shortUrl', function(req, res) {
+    var url = req.params.shortUrl;
+    var id = base58.decode(url);
+    console.log('id: ' + id);
+    if (id == NaN) {
+        Uri.findOne({alias: url}, function (err, doc) {
+            if (doc) {
+                res.redirect(doc.long_url);
+            } else {
+                res.redirect(baseUrl);
+            }
+        });
+        return;
+    }
 
     Url.findOne({_id: id}, function (err, doc){
         if (doc) {
