@@ -3,11 +3,9 @@ $('.btn-make').on('click', function() {
         url: '/api/makeShort',
         type: 'POST',
         dataType: 'JSON',
-        data: {url: $('#url-field').val()},
+        data: {url: $('#url-field').val(), alias: $('alias-field').val()},
         success: function(data) {
-            var resultHTML = '<input id="result-field" type="text" class="form-control" placeholder="Provied some link" value="' + data.shortUrl + '"">' +
-            '<span class="input-group-btn"> <button class="btn btn-copy" type="button">COPY</button></span>';
-
+            var resultHTML = '<h2>This is for YOU!</h2><h3>Url is <a href="' + data.shortUrl + '">' + data.shortUrl + '</a><h3><button type="button" class="btn btn-primary" id="btn-copy">COPY</button>';
             $('#result').html(resultHTML);
         }
     })

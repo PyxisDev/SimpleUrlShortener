@@ -7,24 +7,36 @@
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
+        <br>
+        <h1>Hello, SimpleUrlShortener!</h1>
+        <br><hr>
+        <br><br>
+
         <div class="container">
-            <h1>Hello, SimpleUrlShortener!</h1>
+            <form class="form-inline">
+                <input id="url-field" type="text" class="form-control" placeholder="looooooooong url:(" >
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon">@</div>
+                    <input id="alias-field" type="text" class="form-control" placeholder="alias">
+                </div>
+
+                <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"> use custom alias (if available)
+                    </label>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-make" id="btn-make">Submit</button>
+            </form>
+
+            <div id="result" class="row"></div>
+        </div>
+
+        <div class="footer">
             <hr>
-
-            <div class="col-lg-12">
-                <div class="input-group input-group-lg">
-                    <input id="url-field" type="text" class="form-control" placeholder="Provied some link" >
-                    <span class="input-group-btn">
-                        <button class="btn btn-make" type="button">MAKE</button>
-                    </span> 
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="input-group input-group-lg" id="result">
-                </div>
-             </div>
-            
+            <p>SimpleUrlShortener - 1st Personal Project</p>
+            <p>Made by <a href="https://pyxisdev.github.io">WindSekirun</a></p>
+            <p>Source deployed in <a href="https://github.com/WindSekirun/SimpleUrlShortener">Github</a></p>
         </div>
         
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

@@ -4,7 +4,7 @@
 
 html, body {
   height: 100%;
-  background-color: #03A9F4;
+  background-color: #202020;
 }
 
 body {
@@ -30,12 +30,15 @@ body {
   border: none;
 }
 
-#result {
-  padding-top: 15px;
+#result a{
+  color: #ffffff;
 }
 
-#result a{
-  color: #F89406;
-  font-size: 1.5em;
-  margin-right: 20px;
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
 }
