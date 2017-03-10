@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var base58 = require('./base58.js');
 var config = require('./config.js');
 var Url = require('./models/models.js');
+var clipboard = require('clipboard');
 
 // Basic Settings
 var port = 3000;
