@@ -3,7 +3,7 @@ $('.btn-make').on('click', function() {
         url: '/api/makeShort',
         type: 'POST',
         dataType: 'JSON',
-        data: {url: $('#url-field').val(), alias: $('alias-field').val()},
+        data: {url: $('#url-field').val(), alias: $('#alias-field').val(), checked: $('#use-alias').is(":checked")},
         success: function(data) {
             var resultHTML = '<h2>This is for YOU!</h2><h3>Url is <a id="result-url" href="' + data.shortUrl + '" value="' + data.shortUrl + '">' + 
             data.shortUrl + '</a></h3>';

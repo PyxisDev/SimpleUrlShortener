@@ -39,7 +39,12 @@ app.get('/', function(req, res) {
  */
 app.post('/api/makeShort', function(req, res) {
      var longUrl = req.body.url;
-     var shortUrl = '';
+     var alias = req.body.alias;
+     var checked = req.body.checked;
+
+     console.log('long_url: ' + longUrl);
+     console.log('alias: ' + alias);
+     console.log('checked: ' + checked);
 
     // find duplicate url from mongodb
      Url.findOne({long_url: longUrl}, function (err, doc){
@@ -48,21 +53,43 @@ app.post('/api/makeShort', function(req, res) {
             res.send({'shortUrl': shortUrl});
         } else {
             // not found, so create new one
-            var newUrl = Url({
-                long_url: longUrl
-            });
-
-            newUrl.save(function(err) {
-                if (err){
-                    console.log(err);
-                }
-
-                shortUrl = baseUrl + base58.encode(newUrl._id);
-                res.send({'shortUrl': shortUrl, 'longUrl': longUrl});
-            });
+            if (checked) {
+                // create short url using alias
+                createUseAlias(longUrl, alias);
+                return;
+            }
+            
+            createShortUrl(longUrl, doc);
         }
     });
 })
+
+function createUseAlias(longUrl, alias) {
+    Url.findOne({_id: alias}, function (err, doc) {
+        if (!doc) {
+            // available
+        } else {
+            // not available
+        }
+    });
+}
+
+function createShortUrl(longUrl, doc) {
+    var shortUrl = '';
+
+    var newUrl = Url({
+        long_url: longUrl
+    });
+
+    newUrl.save(function(err) {
+        if (err){
+            console.log(err);
+        }
+
+        shortUrl = baseUrl + base58.encode(newUrl._id);
+        res.send({'shortUrl': shortUrl, 'longUrl': longUrl});
+    });
+}
 
 /**
  * Redirect to original Url
