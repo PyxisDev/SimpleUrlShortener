@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var MongoClient = require('mongodb').MongoClient;
 
 var CounterSchema = Schema({
     _id: {type: String, required: true},
@@ -9,9 +10,17 @@ var CounterSchema = Schema({
 var counter = mongoose.model('counter', CounterSchema);
 
 var urlSchema = new Schema({
-  _id: {type: String, index: true},
+  _id: String,
   long_url: String,
-  created_at: Date
+  created_at: Date,
+  alias: String
+});
+
+var aliasUrlScheme = new Schema({
+  _id: String,
+  long_url: String,
+  created_at: Date,
+  alias: String
 });
 
 urlSchema.pre('save', function(next){
@@ -27,5 +36,9 @@ urlSchema.pre('save', function(next){
 });
 
 var Url = mongoose.model('url', urlSchema);
+var aliasUrl = mongoose.model('aliasUrl', aliasUrlScheme);
 
-module.exports = Url;
+module.exports = {
+    Url,
+    aliasUrl
+}

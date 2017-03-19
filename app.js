@@ -7,6 +7,8 @@ var base58 = require('./base58.js');
 var config = require('./config.js');
 var Url = require('./models/models.js');
 var BSON = require('bson');
+var base64 = require('base-64');
+var utf8 = require('utf8');
 
 // Basic Settings
 var port = 3000;
@@ -54,8 +56,8 @@ app.post('/api/makeShort', function(req, res) {
             // not found, so create new one
             if (checked) {
                 // create short url using alias
-                //createUseAlias(longUrl, alias, res);
-                //return;
+                createUseAlias(longUrl, alias, res);
+                return;
             }
             
             // create short url using algorithm
@@ -67,19 +69,13 @@ app.post('/api/makeShort', function(req, res) {
 function createUseAlias(longUrl, alias, res) {
     Url.findOne({_id: alias}, function (err, doc) {
         if (!doc) {
-            var newUrl = Url({
-                long_url: longUrl,
-                alias: alias
-            });
-
-            newUrl.save(function(err) {
-                if (err) {
-                    console.log(err);
-                }
-
-                shortUrl = baseUrl + alias;
-                res.send({'shortUrl' : shortUrl, 'longUrl': longUrl});
-            });
+           var encodeAlias = base64.encode(alias);
+           var newObj = new Url.aliasUrl({ "_id": encodeAlias, "long_url": longUrl, "created_at": new Date(), "alias": alias });
+           newObj.save(function(err) {
+                if (err) return null;
+                shortUrl = baseUrl + encodeAlias;
+                res.send({'shortUrl': shortUrl, 'longUrl': longUrl});
+           })
         } else {
             createShortUrl(longUrl, doc);
         }
@@ -87,7 +83,7 @@ function createUseAlias(longUrl, alias, res) {
 }
 
 function createShortUrl(longUrl, doc, res) {
-    var newUrl = Url({
+    var newUrl = Url.Url({
         long_url: longUrl
     });
 
